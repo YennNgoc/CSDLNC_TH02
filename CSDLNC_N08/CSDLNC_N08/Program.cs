@@ -10,10 +10,12 @@ namespace CSDLNC_N08
     {
         public static string username;
         public static string password;
+        public static string id;
         public static string connectString;
     }
     static class Program
     {
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,6 +24,7 @@ namespace CSDLNC_N08
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new DonHang());
             Application.Run(new Guest());
         }
     }

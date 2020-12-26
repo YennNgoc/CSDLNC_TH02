@@ -46,6 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSDLNCDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSDLNCDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="CSDLNCDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSDLNCDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DonHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DonHang.Designer.cs">
+      <DependentUpon>DonHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Guest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +82,9 @@
     <Compile Include="User.Designer.cs">
       <DependentUpon>User.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DonHang.resx">
+      <DependentUpon>DonHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Guest.resx">
       <DependentUpon>Guest.cs</DependentUpon>
     </EmbeddedResource>
@@ -84,6 +103,28 @@
     <EmbeddedResource Include="User.resx">
       <DependentUpon>User.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="CSDLNCDataSet.xsc">
+      <DependentUpon>CSDLNCDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="CSDLNCDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CSDLNCDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CSDLNCDataSet.xss">
+      <DependentUpon>CSDLNCDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="CSDLNCDataSet2.xsc">
+      <DependentUpon>CSDLNCDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="CSDLNCDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CSDLNCDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CSDLNCDataSet2.xss">
+      <DependentUpon>CSDLNCDataSet2.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
