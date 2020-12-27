@@ -1,6 +1,6 @@
 ﻿namespace CSDLNC_N08
 {
-    partial class Guest
+    partial class Customer
     {
         /// <summary>
         /// Required designer variable.
@@ -217,7 +217,7 @@
             this.butt_Order.UseVisualStyleBackColor = true;
             this.butt_Order.Click += new System.EventHandler(this.butt_Order_Click);
             // 
-            // Guest
+            // Customer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -237,8 +237,8 @@
             this.Controls.Add(this.sp_view);
             this.Controls.Add(this.butt_search);
             this.Controls.Add(this.tb_name);
-            this.Name = "Guest";
-            this.Text = "Guest";
+            this.Name = "Customer";
+            this.Text = "Customer";
             this.Load += new System.EventHandler(this.listSP_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sp_view)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cSDLNCDataSet)).EndInit();

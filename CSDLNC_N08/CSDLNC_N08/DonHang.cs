@@ -29,12 +29,11 @@ namespace CSDLNC_N08
             da.SelectCommand = cmd_res;
             da.Fill(tb);
             bindingNavigator1.BindingSource.DataSource = tb;
-            textBox1.DataBindings.Add("Text", tb, "MaHD");
-            textBox2.DataBindings.Add("Text", tb, "MaTT");
-            textBox3.DataBindings.Add("Text", tb, "MaVC");
-            textBox4.DataBindings.Add("Text", tb, "MaKM");
+            tb_MaHD.DataBindings.Add("Text", tb, "MaHD");
+            tb_MaTT.DataBindings.Add("Text", tb, "MaTT");
+            tb_MaVC.DataBindings.Add("Text", tb, "MaVC");
+            tb_MaKM.DataBindings.Add("Text", tb, "MaKM");
             textBox5.DataBindings.Add("Text", tb, "ThanhTien");
-
             CT_Load();
 
 
@@ -44,7 +43,7 @@ namespace CSDLNC_N08
 
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandText = "select * from ChiTietHoaDon where MaHD= @maHD";
-            cmd.Parameters.Add("@maHD", SqlDbType.Char, 8).Value = textBox1.Text;
+            cmd.Parameters.Add("@maHD", SqlDbType.Char, 8).Value = tb_MaHD.Text;
             DataTable tb_CT = new DataTable();
             SqlDataAdapter da2 = new SqlDataAdapter();
             da2.SelectCommand = cmd;
@@ -54,9 +53,9 @@ namespace CSDLNC_N08
         }
         private void DonHang_Load(object sender, EventArgs e)
         {
-
+            CT_Load();
             // tao HD  
-            
+
         }
 
         private void bindingNavigator1_RefreshItems(object sender, EventArgs e)
@@ -90,26 +89,48 @@ namespace CSDLNC_N08
         private void butt_OK_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Tao ls giao dich");
+            //con.Open();
+            SqlCommand cmd_res = con.CreateCommand();
+            cmd_res.CommandText = "sp_hoanthanhHoaDon";
+            cmd_res.CommandType = CommandType.StoredProcedure;
+            cmd_res.Parameters.Add("@mahoadon", SqlDbType.Char, 8).Value = tb_MaHD.Text;
+            cmd_res.Parameters.Add("@matt", SqlDbType.Char, 8).Value = tb_MaTT.Text;
+            cmd_res.Parameters.Add("@mavc", SqlDbType.Char, 8).Value = tb_MaVC.Text;
+            cmd_res.Parameters.Add("@makm", SqlDbType.Char, 8).Value = tb_MaKM.Text;
+            cmd_res.ExecuteNonQuery();
+
         }
 
         private void butt_CANC_Click(object sender, EventArgs e)
         {
+            
             MessageBox.Show("Da huy don hang");
+            SqlCommand cmd_res = con.CreateCommand();
+            cmd_res.CommandText = "sp_huyHoaDon";
+            cmd_res.CommandType = CommandType.StoredProcedure;
+            cmd_res.Parameters.Add("@mahoadon", SqlDbType.Char, 8).Value = tb_MaHD.Text;
+            cmd_res.ExecuteNonQuery();
         }
 
-        private void butt_CANCAlll_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Ve lai trang chu");
-        }
-
+       
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
-           
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 

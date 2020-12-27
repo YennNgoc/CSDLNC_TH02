@@ -12,12 +12,12 @@ using System.Data.SqlClient;
 namespace CSDLNC_N08
 {
    
-    public partial class Guest : Form
+    public partial class Customer : Form
     {
 
         List<string> list_SP;
         List<int> list_SL;
-        public Guest()
+        public Customer()
         {
             list_SP = new List<string>();
             list_SL = new List<int>();
@@ -217,10 +217,11 @@ namespace CSDLNC_N08
                     //MessageBox.Show(list_SP[i], list_SL[i].ToString());
 
                 }
+                DonHang fr = new DonHang();
+                fr.Show();
+                this.Hide();
             }
-            DonHang fr = new DonHang();
-            fr.Show();
-            this.Hide();
+           
             
         }
     }
