@@ -22,14 +22,25 @@ namespace CSDLNC_N08
             list_SP = new List<string>();
             list_SL = new List<int>();
             InitializeComponent();
+            butt_rate.Visible = false;
+            butt_pay.Visible = false;
+            butt_get.Visible = false;
+            tb_MA.Visible = false;
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open(); SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "select ID from NguoiMua where Username=@usn";
+            cmd.Parameters.Add("@usn", SqlDbType.Char, 8).Value = Account.username;
+            Account.id = Convert.ToString(cmd.ExecuteScalar());
+            MessageBox.Show(Account.id);
+            tb_id.Text = Account.id.ToString();
         }
 
         private void butt_search_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=ICEBEAR-PC\YENNGOCC;Database=CSDLNC;Persist Security Info=True;User ID=guest;Password=1234567");
+            SqlConnection con = new SqlConnection(Account.connectString);
             try
             {
-                con.Open();
+                
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandText = "select * from SanPham";
                 //cmd.CommandType = CommandType.StoredProcedure;
@@ -50,7 +61,7 @@ namespace CSDLNC_N08
         {
             try
             {
-                SqlConnection con = new SqlConnection(@"Data Source=ICEBEAR-PC\YENNGOCC;Database=CSDLNC;Persist Security Info=True;User ID=guest;Password=1234567");
+                SqlConnection con = new SqlConnection(Account.connectString);
                 con.Open();
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandText = "select * from SanPham order by SoLuotXem DESC";
@@ -71,7 +82,7 @@ namespace CSDLNC_N08
         {
             try
             {
-                SqlConnection con = new SqlConnection(@"Data Source=ICEBEAR-PC\YENNGOCC;Database=CSDLNC;Persist Security Info=True;User ID=guest;Password=1234567");
+                SqlConnection con = new SqlConnection(Account.connectString);
                 con.Open();
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandText = "select * from SanPham order by SoLuotMua DESC";
@@ -107,7 +118,7 @@ namespace CSDLNC_N08
                 {
                     list_SL.Add(x);
                 }
-                GioHang.Items.Add(s.ToUpper() + " \t Số lượng:  " + tb_Num.Text.ToUpper());
+                GioHang.Items.Add(s.ToUpper() + " Số lượng:  " + tb_Num.Text.ToUpper());
                 tb_name.Clear();
                 tb_Num.Clear();
 
@@ -133,16 +144,16 @@ namespace CSDLNC_N08
 
         private void butt_DatHang_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=ICEBEAR-PC\YENNGOCC;Database=CSDLNC;Persist Security Info=True;User ID=guest;Password=1234567");
+            SqlConnection con = new SqlConnection(Account.connectString);
             con.Open();
             SqlCommand cmd_res = con.CreateCommand();
             cmd_res.CommandText = "DELETE from GioHang where IDNguoiMua=@id";
-            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = "id000001";
+            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
             cmd_res.ExecuteNonQuery();
             if (list_SL.Count==0)
             {
                 cmd_res.CommandText = "select * from GioHang where IDNguoiMua=@id";
-                //cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = "id000001";
+                //cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
                 SqlDataAdapter da = new SqlDataAdapter();
                 da.SelectCommand = cmd_res;
                 DataTable dt = new DataTable();
@@ -158,7 +169,7 @@ namespace CSDLNC_N08
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@SP", SqlDbType.Char, 10).Value = list_SP[i].ToString();
                     cmd.Parameters.Add("@SL", SqlDbType.Int, 4).Value = list_SL[i];
-                    cmd.Parameters.Add("@id", SqlDbType.Char, 10).Value = "id000001";
+                    cmd.Parameters.Add("@id", SqlDbType.Char, 10).Value = Account.id;
                     //cmd.ExecuteNonQuery();
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
@@ -174,11 +185,11 @@ namespace CSDLNC_N08
 
         private void butt_Cancel_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=ICEBEAR-PC\YENNGOCC;Database=CSDLNC;Persist Security Info=True;User ID=guest;Password=1234567");
+            SqlConnection con = new SqlConnection(Account.connectString);
             con.Open();
             SqlCommand cmd_res = con.CreateCommand();
             cmd_res.CommandText = "delete GioHang where IDNguoiMua=@id";
-            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = "id000001";
+            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
             cmd_res.ExecuteNonQuery();
             GioHang.Items.Clear();
             list_SL.Clear();
@@ -187,11 +198,11 @@ namespace CSDLNC_N08
 
         private void butt_Order_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=ICEBEAR-PC\YENNGOCC;Database=CSDLNC;Persist Security Info=True;User ID=guest;Password=1234567");
+            SqlConnection con = new SqlConnection(Account.connectString);
             con.Open();
             SqlCommand cmd_res = con.CreateCommand();
             cmd_res.CommandText = "DELETE from GioHang where IDNguoiMua=@id";
-            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = "id000001";
+            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
             cmd_res.ExecuteNonQuery();
             if (list_SL.Count == 0)
             {
@@ -207,7 +218,7 @@ namespace CSDLNC_N08
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@SP", SqlDbType.Char, 10).Value = list_SP[i].ToString();
                     cmd.Parameters.Add("@SL", SqlDbType.Int, 4).Value = list_SL[i];
-                    cmd.Parameters.Add("@id", SqlDbType.Char, 10).Value = "id000001";
+                    cmd.Parameters.Add("@id", SqlDbType.Char, 10).Value = Account.id;
                     //cmd.ExecuteNonQuery();
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
@@ -223,6 +234,93 @@ namespace CSDLNC_N08
             }
            
             
+        }
+
+        private void butt_checked_Click(object sender, EventArgs e)
+        {
+            tb_MA.Visible = true;
+            butt_get.Visible = true;
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open();
+            SqlCommand cmd_res = con.CreateCommand();
+            cmd_res.CommandText = "EXEC sp_set_session_context 'id_mua', @id; SELECT* FROM v_DonHangKH v where v.TinhTrang=N'Đang giao' and not exists (select * from v_DonHangKH ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
+            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
+            cmd_res.ExecuteNonQuery();
+            SqlDataAdapter da_hd = new SqlDataAdapter();
+            da_hd.SelectCommand = cmd_res;
+            DataTable dt_hd = new DataTable();
+            da_hd.Fill(dt_hd);
+            hd_view.DataSource = dt_hd;
+
+        }
+
+        private void butt_get_Click(object sender, EventArgs e)
+        {
+            try
+            {            
+            butt_pay.Visible = true;
+            butt_rate.Visible = true;
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "sp_KHNhanDonHang";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@mahoadon", SqlDbType.Char, 10).Value = tb_MA.Text;
+            cmd.ExecuteNonQuery();
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+}
+
+        private void butt_wait_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open();
+            SqlCommand cmd_res = con.CreateCommand();
+            cmd_res.CommandText = "EXEC sp_set_session_context 'id_mua', @id; SELECT* FROM v_DonHangKH v where v.TinhTrang=N'Chờ xác nhận' and not exists (select * from v_DonHangKH ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
+            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
+            cmd_res.ExecuteNonQuery();
+            SqlDataAdapter da_hd = new SqlDataAdapter();
+            da_hd.SelectCommand = cmd_res;
+            DataTable dt_hd = new DataTable();
+            da_hd.Fill(dt_hd);
+            hd_view.DataSource = dt_hd;
+            //cb_done.DataSource = dt_hd;
+           
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tb_id_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GioHang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butt_done_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open();
+            SqlCommand cmd_res = con.CreateCommand();
+            cmd_res.CommandText = "EXEC sp_set_session_context 'id_mua', @id; SELECT* FROM v_DonHangKH v where v.TinhTrang=N'Giao thành công' and not exists (select * from v_DonHangKH ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
+            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
+            cmd_res.ExecuteNonQuery();
+            SqlDataAdapter da_hd = new SqlDataAdapter();
+            da_hd.SelectCommand = cmd_res;
+            DataTable dt_hd = new DataTable();
+            da_hd.Fill(dt_hd);
+            hd_view.DataSource = dt_hd;
+           
         }
     }
 }

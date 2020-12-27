@@ -16,7 +16,7 @@ namespace CSDLNC_N08
         DataTable tb = new DataTable();
         SqlDataAdapter da = new SqlDataAdapter();
         DataTable tb_CT = new DataTable();
-        SqlConnection con = new SqlConnection(@"Data Source=ICEBEAR-PC\YENNGOCC;Database=CSDLNC;Persist Security Info=True;User ID=guest;Password=1234567");
+        SqlConnection con = new SqlConnection(Account.connectString);
         public DonHang()
         {
             InitializeComponent();
@@ -24,7 +24,7 @@ namespace CSDLNC_N08
             SqlCommand cmd_res = con.CreateCommand();
             cmd_res.CommandText = "sp_taoDonHang";
             cmd_res.CommandType = CommandType.StoredProcedure;
-            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = "id000001";
+            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
             //cmd_res.ExecuteNonQuery();
             da.SelectCommand = cmd_res;
             da.Fill(tb);
@@ -35,9 +35,11 @@ namespace CSDLNC_N08
             tb_MaKM.DataBindings.Add("Text", tb, "MaKM");
             textBox5.DataBindings.Add("Text", tb, "ThanhTien");
             CT_Load();
+            //this.FormClosing += Form_FormClosing;
 
 
         }
+        
         public void CT_Load()
         {
 
@@ -132,7 +134,24 @@ namespace CSDLNC_N08
         {
 
         }
+
+        private void DonHang_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageBox.Show("Dong don hang");
+            this.Hide();
+            Customer fr = new Customer();
+            fr.Show();
+        }
+
+
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
+
 
        
 }
