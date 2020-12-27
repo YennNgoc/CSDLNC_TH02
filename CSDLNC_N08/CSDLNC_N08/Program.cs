@@ -24,7 +24,7 @@ namespace CSDLNC_N08
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Application.Run(new Guest());
             //Application.Run(new Shop());
         }
     }

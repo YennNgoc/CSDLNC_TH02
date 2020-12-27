@@ -21,7 +21,7 @@ namespace CSDLNC_N08
             cmd.CommandText = "select ID from DaiLy where Username=@usn";
             cmd.Parameters.Add("@usn", SqlDbType.Char, 8).Value = Account.username;
             Account.id = Convert.ToString(cmd.ExecuteScalar());
-            MessageBox.Show(Account.id);
+            //MessageBox.Show(Account.id);
             tb_id.Text = Account.id.ToString();
         }
 
@@ -136,6 +136,74 @@ namespace CSDLNC_N08
             DataTable dt = new DataTable();
             da.Fill(dt);
             sp_view.DataSource = dt;
+        }
+
+        private void butt_stat_Click(object sender, EventArgs e)
+        {
+
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "EXEC sp_set_session_context 'id_ban', @id;select * from v_SPthuocDL";
+            //cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            sp_view.DataSource = dt;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open();
+            SqlCommand cmd_res = con.CreateCommand();
+            cmd_res.CommandText = "EXEC sp_set_session_context 'id_ban', @id; SELECT* FROM v_DonHangDL v where v.TinhTrang=N'Giao thành công' and not exists (select * from v_DonHangKH ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
+            cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
+            cmd_res.ExecuteNonQuery();
+            SqlDataAdapter da_hd = new SqlDataAdapter();
+            da_hd.SelectCommand = cmd_res;
+            DataTable dt_hd = new DataTable();
+            da_hd.Fill(dt_hd);
+            hd_view.DataSource = dt_hd;
+        }
+
+        private void Shop_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "sp_themsanpham";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@iddaily", SqlDbType.Char, 8).Value = Account.id;
+            cmd.Parameters.Add("@tensanpham", SqlDbType.Char, 8).Value = tb_ten.Text;
+            cmd.Parameters.Add("@dongia", SqlDbType.Char, 8).Value = tb_gia.Text;
+            cmd.Parameters.Add("@mota", SqlDbType.Char, 8).Value = tb_mota.Text;
+            cmd.Parameters.Add("@loaisanpham", SqlDbType.Char, 8).Value = tb_loai.Text;
+            cmd.Parameters.Add("@sltonkho", SqlDbType.Char, 8).Value = tb_sl.Text;
+            cmd.Parameters.Add("@masp", SqlDbType.Char, 8).Value = tb_maSP.Text;
+            cmd.ExecuteNonQuery();
+
+        }
+
+        private void butt_add_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "sp_capnhatsanpham";
+            cmd.CommandType = CommandType.StoredProcedure;           
+            cmd.Parameters.Add("@dongia", SqlDbType.Char, 8).Value = tb_gia.Text;   
+            cmd.Parameters.Add("@soluong", SqlDbType.Char, 8).Value = tb_sl.Text;
+            cmd.Parameters.Add("@masanpham", SqlDbType.Char, 8).Value = tb_maSP.Text;
+
+            cmd.ExecuteNonQuery();
         }
     }
 }

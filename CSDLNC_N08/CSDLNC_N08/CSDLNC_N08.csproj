@@ -68,6 +68,12 @@
     <Compile Include="Customer.Designer.cs">
       <DependentUpon>Customer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Guest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Guest.Designer.cs">
+      <DependentUpon>Guest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,17 +88,14 @@
     <Compile Include="Shop.Designer.cs">
       <DependentUpon>Shop.cs</DependentUpon>
     </Compile>
-    <Compile Include="User.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="User.Designer.cs">
-      <DependentUpon>User.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="DonHang.resx">
       <DependentUpon>DonHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer.resx">
       <DependentUpon>Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Guest.resx">
+      <DependentUpon>Guest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -108,9 +111,6 @@
     </Compile>
     <EmbeddedResource Include="Shop.resx">
       <DependentUpon>Shop.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="User.resx">
-      <DependentUpon>User.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="CSDLNCDataSet.xsc">
       <DependentUpon>CSDLNCDataSet.xsd</DependentUpon>

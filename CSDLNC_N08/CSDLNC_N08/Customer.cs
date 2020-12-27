@@ -31,7 +31,7 @@ namespace CSDLNC_N08
             cmd.CommandText = "select ID from NguoiMua where Username=@usn";
             cmd.Parameters.Add("@usn", SqlDbType.Char, 8).Value = Account.username;
             Account.id = Convert.ToString(cmd.ExecuteScalar());
-            MessageBox.Show(Account.id);
+            //MessageBox.Show(Account.id);
             tb_id.Text = Account.id.ToString();
         }
 
@@ -321,6 +321,26 @@ namespace CSDLNC_N08
             da_hd.Fill(dt_hd);
             hd_view.DataSource = dt_hd;
            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            SqlConnection con = new SqlConnection(Account.connectString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "select * from SanPham order by IDDaiLy";
+            //cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            sp_view.DataSource = dt;
+        }
+
+        private void Customer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Close();
         }
     }
 }
