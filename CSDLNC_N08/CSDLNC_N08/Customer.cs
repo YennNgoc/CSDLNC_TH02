@@ -40,10 +40,13 @@ namespace CSDLNC_N08
             SqlConnection con = new SqlConnection(Account.connectString);
             try
             {
-                
+
+                con.Open();
                 SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = "select * from SanPham";
-                //cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_timkiemtheoten";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@tensanpham", SqlDbType.NVarChar, 30).Value = tb_name.Text;
+                cmd.ExecuteNonQuery();
                 SqlDataAdapter da = new SqlDataAdapter();
                 da.SelectCommand = cmd;
                 DataTable dt = new DataTable();
@@ -54,7 +57,7 @@ namespace CSDLNC_N08
             {
                 MessageBox.Show("lalala");
             }
-            
+
         }
 
         private void butt_PhoBien_Click(object sender, EventArgs e)

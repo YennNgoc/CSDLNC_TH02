@@ -30,7 +30,7 @@ namespace CSDLNC_N08
             SqlConnection con = new SqlConnection(Account.connectString);
             con.Open();
             SqlCommand cmd_res = con.CreateCommand();
-            cmd_res.CommandText = "EXEC sp_set_session_context 'id_ban', @id; SELECT* FROM v_DonHangDL v where v.TinhTrang=N'Chờ xác nhận' and not exists (select * from v_DonHangKH ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
+            cmd_res.CommandText = "EXEC sp_set_session_context 'id_ban', @id; SELECT* FROM v_DonHangDL v where v.TinhTrang=N'Chờ xác nhận' and not exists (select * from v_DonHangDL ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
             cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
             cmd_res.ExecuteNonQuery();
             SqlDataAdapter da_hd = new SqlDataAdapter();
@@ -65,7 +65,7 @@ namespace CSDLNC_N08
             SqlConnection con = new SqlConnection(Account.connectString);
             con.Open();
             SqlCommand cmd_res = con.CreateCommand();
-            cmd_res.CommandText = "EXEC sp_set_session_context 'id_ban', @id; SELECT* FROM v_DonHangDL v where v.TinhTrang=N'Đã xác nhận' and not exists (select * from v_DonHangKH ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
+            cmd_res.CommandText = "EXEC sp_set_session_context 'id_ban', @id; SELECT* FROM v_DonHangDL v where v.TinhTrang=N'Đã xác nhận' and not exists (select * from v_DonHangDL ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
             cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
             cmd_res.ExecuteNonQuery();
             SqlDataAdapter da_hd = new SqlDataAdapter();
@@ -159,7 +159,7 @@ namespace CSDLNC_N08
             SqlConnection con = new SqlConnection(Account.connectString);
             con.Open();
             SqlCommand cmd_res = con.CreateCommand();
-            cmd_res.CommandText = "EXEC sp_set_session_context 'id_ban', @id; SELECT* FROM v_DonHangDL v where v.TinhTrang=N'Giao thành công' and not exists (select * from v_DonHangKH ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
+            cmd_res.CommandText = "EXEC sp_set_session_context 'id_ban', @id; SELECT* FROM v_DonHangDL v where v.TinhTrang=N'Giao thành công' and not exists (select * from v_DonHangDL ls where ls.ThoiGian>v.ThoiGian and ls.MaHD=v.MaHD) ";
             cmd_res.Parameters.Add("@id", SqlDbType.Char, 8).Value = Account.id;
             cmd_res.ExecuteNonQuery();
             SqlDataAdapter da_hd = new SqlDataAdapter();
